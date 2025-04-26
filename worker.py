@@ -80,7 +80,7 @@ session = setup_requests_session()
 def get_resource_usage():
     return {
         "name": NODE_NAME,
-        "cpu": psutil.cpu_percent(),
+        "cpu": psutil.cpu_percent(interval=0.1),
         "ram": psutil.virtual_memory().percent,
         "net": psutil.net_io_counters().bytes_sent,
         "ip": socket.gethostbyname(socket.gethostname())

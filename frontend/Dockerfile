@@ -1,31 +1,28 @@
-# Usar una imagen de Node para construir la app
+# Usar Node para construir
 FROM node:20 as build
 
-# Definir el directorio de trabajo
+# Definir directorio de trabajo
 WORKDIR /app
 
-# Copiar el package.json y package-lock.json
+# Copiar solo package.json y package-lock.json primero
 COPY package*.json ./
 
-# Instalar las dependencias
+# Instalar dependencias limpio dentro del contenedor
 RUN npm install
 
-# Copiar el resto del código de la aplicación
+# Copiar el resto de la app (sin node_modules)
 COPY . .
 
-# Construir la aplicación para producción
+# Construir la aplicación
 RUN npm run build
 
-# Usar una imagen de Nginx para servir la app
+# Imagen final Nginx
 FROM nginx:alpine
 
-# Copiar el build generado al directorio de Nginx
-COPY --from=build /app/build /usr/share/nginx/html
+# Copiar el build
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copiar un archivo de configuración de Nginx (opcional)
-# COPY nginx.conf /etc/nginx/nginx.conf
-
-# Exponer el puerto 80
+# Exponer el puerto
 EXPOSE 80
 
 # Arrancar Nginx

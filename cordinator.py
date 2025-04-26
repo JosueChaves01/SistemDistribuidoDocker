@@ -99,12 +99,11 @@ def get_result_image(filename: str):
 def rabbitmq_channel():
     connection = None
     try:
+
         connection = pika.BlockingConnection(
             pika.ConnectionParameters(
-                host='rabbitmq',
-                credentials=pika.PlainCredentials('myuser', 'mypassword'),
-                heartbeat=30,
-                blocked_connection_timeout=60
+                host='rabbitmq',  
+                credentials=pika.PlainCredentials('myuser', 'mypassword')
             )
         )
         channel = connection.channel()

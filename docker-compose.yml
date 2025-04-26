@@ -12,6 +12,17 @@ services:
     depends_on:
       - rabbitmq 
 
+  frontend:
+  build:
+    context: ./frontend
+    dockerfile: Dockerfile
+  ports:
+    - "3000:80"
+  networks:
+    - app_network
+  depends_on:
+    - coordinator
+
   worker:
     build:
       context: .
@@ -37,6 +48,7 @@ services:
       - rabbitmq_data:/var/lib/rabbitmq 
     networks:
       - app_network
+
 
 networks:
   app_network:

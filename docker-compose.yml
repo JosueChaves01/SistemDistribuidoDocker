@@ -9,8 +9,8 @@ services:
       - "8000:8000"
     networks:
       - app_network
-    depends_on:
-      - rabbitmq 
+
+
 
   frontend:
     build:
@@ -21,7 +21,7 @@ services:
     networks:
       - app_network
     depends_on:
-      - coordinator
+      - coordinator 
 
   worker:
     build:
@@ -32,34 +32,10 @@ services:
     networks:
       - app_network
     depends_on:
-      - rabbitmq
       - coordinator
 
-  rabbitmq:
-    image: rabbitmq:3.12-management  
-    hostname: rabbitmq.your-tailscale-domain.ts.net
-    ports:
-      - "5672:5672"  
-      - "15672:15672"  
-    environment:
-      RABBITMQ_DEFAULT_USER: myuser  
-      RABBITMQ_DEFAULT_PASS: mypassword  
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq 
-    networks:
-      - app_network
-    depends_on:
-      - tailscale
 
-  tailscale:
-    image: tailscale/tailscale:latest
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - TAILSCALE_AUTH_KEY=tskey-auth-kzJ3zCXdmh11CNTRL-fvB644J9eH2bpsyHPN8CH21k4c4aUP4s
-    networks:
-      - app_network
-    restart: unless-stopped
+    
 
 networks:
   app_network:

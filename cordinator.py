@@ -99,10 +99,10 @@ def get_result_image(filename: str):
 def rabbitmq_channel():
     connection = None
     try:
-
         connection = pika.BlockingConnection(
             pika.ConnectionParameters(
-                host='rabbitmq',  
+                host='100.120.111.9',  # <- IP Tailscale del servidor RabbitMQ
+                port=5672,             # RabbitMQ usa por defecto el puerto 5672 para conexiones AMQP
                 credentials=pika.PlainCredentials('myuser', 'mypassword')
             )
         )

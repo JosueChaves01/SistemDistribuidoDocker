@@ -41,7 +41,7 @@ class RabbitMQConnection:
         try:
             credentials = pika.PlainCredentials('myuser', 'mypassword')
             parameters = pika.ConnectionParameters(
-                host='rabbitmq',
+                host='100.120.111.9',
                 credentials=credentials,
                 heartbeat=30,  # 30 segundos de heartbeat
                 blocked_connection_timeout=60,
@@ -85,7 +85,16 @@ def get_resource_usage():
         "net": psutil.net_io_counters().bytes_sent,
         "ip": socket.gethostbyname(socket.gethostname())
     }
+    
 
+def get_resource_usage():
+    return {
+        "name": NODE_NAME,
+        "cpu": psutil.cpu_percent(interval=0.1),
+        "ram": psutil.virtual_memory().percent,
+        "net": psutil.net_io_counters().bytes_sent,
+        "ip": socket.gethostbyname(socket.gethostname())
+    }
 def background_report():
     while True:
         try:

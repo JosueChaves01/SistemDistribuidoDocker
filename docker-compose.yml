@@ -10,8 +10,7 @@ services:
     networks:
       - app_network
 
-
-
+  
   frontend:
     build:
       context: ./frontend

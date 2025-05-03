@@ -41,7 +41,7 @@ class RabbitMQConnection:
         try:
             credentials = pika.PlainCredentials('myuser', 'mypassword')
             parameters = pika.ConnectionParameters(
-                host='100.120.111.9',
+                host='100.73.153.106',
                 credentials=credentials,
                 heartbeat=30,  # 30 segundos de heartbeat
                 blocked_connection_timeout=60,
@@ -64,7 +64,7 @@ class RabbitMQConnection:
 # Configuración
 load_dotenv()
 app = FastAPI()
-COORDINATOR_IP = os.getenv('COORDINATOR_HOST', 'coordinator')
+COORDINATOR_IP = "100.73.153.106"
 NODE_NAME = os.getenv('WORKER_NAME', f'worker-{socket.gethostname()}')
 
 # Configuración de requests
